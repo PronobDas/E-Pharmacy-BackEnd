@@ -8,47 +8,44 @@ import java.util.Date;
 @Document(collection = "doctors")
 public class Doctor {
     @Id
-    private String doctorId;
-    private String hospitalId;
-    private String doctorName;
+    private String id;
+
+    private String name;
+    private String designation;
     private String speciality;
-    private String address;
-    private String about;
-    //private String profilePicture;
-    private String createdOn;
+    private String locationId;
+    private String day;
+    private String time;
+    private String contactNo;
 
-    public Doctor(String doctorId, String hospitalId, String doctorName, String speciality, String address, String about, String createdOn) {
-        this.doctorId = doctorId;
-        this.hospitalId = hospitalId;
-        this.doctorName = doctorName;
+    public Doctor(String name, String designation, String speciality, String locationId, String day, String time, String contactNo) {
+        this.name = name;
+        this.designation = designation;
         this.speciality = speciality;
-        this.address = address;
-        this.about = about;
-        this.createdOn = createdOn;
+        this.locationId = locationId;
+        this.day = day;
+        this.time = time;
+        this.contactNo = contactNo;
     }
 
-    public String getDoctorId() {
-        return doctorId;
+    public String getId() {
+        return id;
     }
 
-    public void setDoctorId(String doctorId) {
-        this.doctorId = doctorId;
+    public String getName() {
+        return name;
     }
 
-    public String getHospitalId() {
-        return hospitalId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setHospitalId(String hospitalId) {
-        this.hospitalId = hospitalId;
+    public String getDesignation() {
+        return designation;
     }
 
-    public String getDoctorName() {
-        return doctorName;
-    }
-
-    public void setDoctorName(String doctorName) {
-        this.doctorName = doctorName;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public String getSpeciality() {
@@ -59,40 +56,49 @@ public class Doctor {
         this.speciality = speciality;
     }
 
-    public String getAddress() {
-        return address;
+    public String getLocationId() {
+        return locationId;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setLocationId(String locationId) {
+        this.locationId = locationId;
     }
 
-    public String getAbout() {
-        return about;
+    public String getDay() {
+        return day;
     }
 
-    public void setAbout(String about) {
-        this.about = about;
+    public void setDay(String day) {
+        this.day = day;
     }
 
-    public String getCreatedOn() {
-        return createdOn;
+    public String getTime() {
+        return time;
     }
 
-    public void setCreatedOn(String createdOn) {
-        this.createdOn = createdOn;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
     }
 
     @Override
     public String toString() {
         return "Doctor{" +
-                "doctorId='" + doctorId + '\'' +
-                ", hospitalId='" + hospitalId + '\'' +
-                ", doctorName='" + doctorName + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", designation='" + designation + '\'' +
                 ", speciality='" + speciality + '\'' +
-                ", address='" + address + '\'' +
-                ", about='" + about + '\'' +
-                ", createdOn=" + createdOn +
+                ", locationId='" + locationId + '\'' +
+                ", day='" + day + '\'' +
+                ", time='" + time + '\'' +
+                ", contactNo='" + contactNo + '\'' +
                 '}';
     }
 }

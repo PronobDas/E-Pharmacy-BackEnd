@@ -102,6 +102,7 @@ public class MedicineController {
             _medicine.setWeight(medicine.getWeight());
             _medicine.setUnitPrice(medicine.getUnitPrice());
             _medicine.setSensitivity(medicine.getSensitivity());
+
             return new ResponseEntity<>(medicineRepository.save(_medicine), HttpStatus.OK);
         } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
