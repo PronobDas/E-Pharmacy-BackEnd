@@ -1,16 +1,91 @@
 package com.example.restservice.models.medicine;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "medicines")
 public class Medicine {
     @Id
-    String id;
+    private String id;
 
-    String name;
-    String genericName;
-    String manufacturerId;
-    double weight;
-    double unitPrice;
-    String sensitivity;
+    private String name;
+    private String genericName;
+    private String companyName;
+    private double weight;
+    private double unitPrice;
+    private String sensitivity;
 
+    public Medicine(String name, String genericName, String companyName, double weight, double unitPrice, String sensitivity) {
+        this.name = name;
+        this.genericName = genericName;
+        this.companyName = companyName;
+        this.weight = weight;
+        this.unitPrice = unitPrice;
+        this.sensitivity = sensitivity;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getGenericName() {
+        return genericName;
+    }
+
+    public void setGenericName(String genericName) {
+        this.genericName = genericName;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getUnitPrice() {
+        return unitPrice;
+    }
+
+    public void setUnitPrice(double unitPrice) {
+        this.unitPrice = unitPrice;
+    }
+
+    public String getSensitivity() {
+        return sensitivity;
+    }
+
+    public void setSensitivity(String sensitivity) {
+        this.sensitivity = sensitivity;
+    }
+
+    @Override
+    public String toString() {
+        return "Medicine{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", genericName='" + genericName + '\'' +
+                ", companyName='" + companyName + '\'' +
+                ", weight=" + weight +
+                ", unitPrice=" + unitPrice +
+                ", sensitivity='" + sensitivity + '\'' +
+                '}';
+    }
 }
