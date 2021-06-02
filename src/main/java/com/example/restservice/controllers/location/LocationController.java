@@ -73,7 +73,6 @@ public class LocationController {
         }
     }
 
-
     @DeleteMapping("/locations/{id}")
     public ResponseEntity<HttpStatus> deleteLocation(@PathVariable("id") String id) {
         try {
