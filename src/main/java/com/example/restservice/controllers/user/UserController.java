@@ -21,7 +21,7 @@ public class UserController {
     @PostMapping("/users")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
-            User _user = userRepository.save(new User(user.getName(), user.getGender(), user.getEmail(), user.getContactNo(), user.getLocationId()));
+            User _user = userRepository.save(new User(user.getFirstName(),user.getLastName(), user.getPassword(), user.getEmail(), user.getLocation(), user.getGender(), user.getPhone()));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,10 +55,10 @@ public class UserController {
         }
     }
 
-    @GetMapping("/users/name/{name}")
-    public ResponseEntity<List<User>> getUserByName(@PathVariable("name") String name) {
+    @GetMapping("/users/name/{firstName}")
+    public ResponseEntity<List<User>> getUserByFirstName(@PathVariable("firstName") String firstName) {
         List<User> users = new ArrayList<User>();
-        userRepository.findByNameContaining(name).forEach(users::add);
+        userRepository.findByFirstNameContaining(firstName).forEach(users::add);
 
         if (!users.isEmpty()) {
             //patientRepository.findByPatientNameContaining(patientName).forEach(patients::add);
@@ -75,11 +75,13 @@ public class UserController {
         if (userData.isPresent()) {
             User _user = userData.get();
 
-            _user.setName(user.getName());
-            _user.setGender(user.getGender());
+            _user.setFirstName(user.getFirstName());
+            _user.setLastName(user.getLastName());
+            _user.setPassword(user.getPassword());
             _user.setEmail(user.getEmail());
-            _user.setContactNo(user.getContactNo());
-            _user.setLocationId(user.getLocationId());
+            _user.setLocation(user.getLocation());
+            _user.setGender(user.getGender());
+            _user.setPhone(user.getPhone());
             return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -95,4 +97,14 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/users")
+    public ResponseEntity<HttpStatus> deleteAllUsers() {
+        try {
+            userRepository.deleteAll();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
