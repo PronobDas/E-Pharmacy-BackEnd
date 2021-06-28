@@ -55,6 +55,17 @@ public class UserController {
         }
     }
 
+    @GetMapping("/users/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+        Optional<User> userData = userRepository.findByEmail(email);
+
+        if (userData.isPresent()) {
+            return new ResponseEntity<>(userData.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/users/name/{firstName}")
     public ResponseEntity<List<User>> getUserByFirstName(@PathVariable("firstName") String firstName) {
         List<User> users = new ArrayList<User>();
