@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class MedicineController {
@@ -50,7 +50,7 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/medicines/id/{id}")
+    @GetMapping("/medicines/{id}")
     public ResponseEntity<Medicine> getMedicineById(@PathVariable("id") String id) {
         Optional<Medicine> medicineData = medicineRepository.findById(id);
         if (medicineData.isPresent()) {
@@ -60,7 +60,7 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/medicines/name/{name}")
+    @GetMapping("/medicines/{name}")
     public ResponseEntity<List<Medicine>> getMedicineByName(@PathVariable("name") String name) {
         try {
             List<Medicine> medicines = new ArrayList<Medicine>();
