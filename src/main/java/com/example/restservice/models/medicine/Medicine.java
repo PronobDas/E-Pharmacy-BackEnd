@@ -14,14 +14,16 @@ public class Medicine {
     private double weight;
     private double unitPrice;
     private String sensitivity;
+    private String imageURL;
 
-    public Medicine(String name, String genericName, String companyName, double weight, double unitPrice, String sensitivity) {
+    public Medicine(String name, String genericName, String companyName, double weight, double unitPrice, String sensitivity, String imageURL) {
         this.name = name;
         this.genericName = genericName;
         this.companyName = companyName;
         this.weight = weight;
         this.unitPrice = unitPrice;
         this.sensitivity = sensitivity;
+        this.imageURL = imageURL;
     }
 
     public String getId() {
@@ -76,6 +78,14 @@ public class Medicine {
         this.sensitivity = sensitivity;
     }
 
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
     @Override
     public String toString() {
         return "Medicine{" +
@@ -86,6 +96,7 @@ public class Medicine {
                 ", weight=" + weight +
                 ", unitPrice=" + unitPrice +
                 ", sensitivity='" + sensitivity + '\'' +
+                ", imageURL='" + imageURL + '\'' +
                 '}';
     }
 }

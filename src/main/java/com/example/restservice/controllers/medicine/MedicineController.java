@@ -27,7 +27,8 @@ public class MedicineController {
                     medicine.getCompanyName(),
                     medicine.getWeight(),
                     medicine.getUnitPrice(),
-                    medicine.getSensitivity()
+                    medicine.getSensitivity(),
+                    medicine.getImageURL()
             ));
             return new ResponseEntity<>(_medicine, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -50,7 +51,7 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/medicines/{id}")
+    @GetMapping("/medicines/id/{id}")
     public ResponseEntity<Medicine> getMedicineById(@PathVariable("id") String id) {
         Optional<Medicine> medicineData = medicineRepository.findById(id);
         if (medicineData.isPresent()) {
@@ -60,7 +61,7 @@ public class MedicineController {
         }
     }
 
-    @GetMapping("/medicines/{name}")
+    @GetMapping("/medicines/name/{name}")
     public ResponseEntity<List<Medicine>> getMedicineByName(@PathVariable("name") String name) {
         try {
             List<Medicine> medicines = new ArrayList<Medicine>();
@@ -102,6 +103,7 @@ public class MedicineController {
             _medicine.setWeight(medicine.getWeight());
             _medicine.setUnitPrice(medicine.getUnitPrice());
             _medicine.setSensitivity(medicine.getSensitivity());
+            _medicine.setImageURL(medicine.getImageURL());
 
             return new ResponseEntity<>(medicineRepository.save(_medicine), HttpStatus.OK);
         } else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
