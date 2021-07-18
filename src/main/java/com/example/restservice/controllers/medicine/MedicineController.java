@@ -18,6 +18,7 @@ public class MedicineController {
     @Autowired
     MedicineRepository medicineRepository;
 
+    //@RequestMapping(method = RequestMethod.GET, value = "/medicines")
     @PostMapping("/medicines")
     public ResponseEntity<Medicine> createMedicine(@RequestBody Medicine medicine) {
         try {
@@ -63,6 +64,7 @@ public class MedicineController {
 
     @GetMapping("/medicines/name/{name}")
     public ResponseEntity<List<Medicine>> getMedicineByName(@PathVariable("name") String name) {
+        name = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
         try {
             List<Medicine> medicines = new ArrayList<Medicine>();
             medicineRepository.findByNameContaining(name).forEach(medicines::add);
