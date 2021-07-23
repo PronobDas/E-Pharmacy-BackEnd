@@ -18,8 +18,6 @@ public class Order {
     private List<Integer> units;
     private List<Medicine> medicines;
 
-    public Order(){}
-
     public Order(String location, double totalPrice, String prescription, List<Integer> units, List<Medicine> medicines) {
         this.location = location;
         this.prescription = prescription;
@@ -27,6 +25,8 @@ public class Order {
         this.medicines = medicines;
         this.totalPrice = this.calculateTotalPrice();
     }
+
+    public Order(){}
 
     public double calculateTotalPrice()
     {
