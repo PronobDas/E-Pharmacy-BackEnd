@@ -4,7 +4,7 @@ import com.example.restservice.models.medicine.Medicine;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Arrays;
+import java.util.List;
 
 @Document(collection = "orders")
 public class Order {
@@ -12,18 +12,34 @@ public class Order {
     private String id;
 
     private String location;
-    private int[] quantity;
     private double totalPrice;
     private String prescription;
 
-    private Medicine[] medicines;
+    private List<Integer> units;
+    private List<Medicine> medicines;
 
-    public Order(String location, int[] quantity, double totalPrice, String prescription, Medicine[] medicines) {
+    public Order(){}
+
+    public Order(String location, double totalPrice, String prescription, List<Integer> units, List<Medicine> medicines) {
         this.location = location;
-        this.quantity = quantity;
-        this.totalPrice = totalPrice;
         this.prescription = prescription;
+        this.units = units;
         this.medicines = medicines;
+        this.totalPrice = this.calculateTotalPrice();
+    }
+
+    public double calculateTotalPrice()
+    {
+        double tp = 0;
+        try {
+            for (int i = 0; i < medicines.size(); i++) {
+                tp += medicines.get(i).getUnitPrice() * units.get(i);
+            }
+            return tp;
+        }
+        catch (Exception e) {
+            return 0.0;
+        }
     }
 
     public String getId() {
@@ -36,14 +52,6 @@ public class Order {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public int[] getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int[] quantity) {
-        this.quantity = quantity;
     }
 
     public double getTotalPrice() {
@@ -62,23 +70,28 @@ public class Order {
         this.prescription = prescription;
     }
 
-    public Medicine[] getMedicines() {
+    public List<Integer> getUnits() {
+        return units;
+    }
+
+    public void setUnits(List<Integer> units) {
+        this.units = units;
+    }
+
+    public void setUnit(int unit) {
+        this.units.add(unit);
+    }
+
+    public List<Medicine> getMedicines() {
         return medicines;
     }
 
-    public void setMedicines(Medicine[] medicines) {
+    public void setMedicines(List<Medicine> medicines) {
         this.medicines = medicines;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "id='" + id + '\'' +
-                ", location='" + location + '\'' +
-                ", quantity=" + Arrays.toString(quantity) +
-                ", totalPrice=" + totalPrice +
-                ", prescription='" + prescription + '\'' +
-                ", medicines=" + Arrays.toString(medicines) +
-                '}';
+    public void setMedicine(Medicine medicine)
+    {
+        this.medicines.add(medicine);
     }
 }
