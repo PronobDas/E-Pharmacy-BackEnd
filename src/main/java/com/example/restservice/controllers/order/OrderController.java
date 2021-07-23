@@ -4,6 +4,7 @@ import com.example.restservice.models.medicine.Medicine;
 import com.example.restservice.models.order.Order;
 import com.example.restservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.aggregation.BooleanOperators;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,7 @@ public class OrderController {
         }
     }
 
+    //For adding medicines to the order
     @PutMapping("/orders/{orderId}/medicine/{unit}")
     public ResponseEntity<Order> addMedicine(@PathVariable String orderId, @PathVariable int unit ,@RequestBody Medicine medicine){
         Optional<Order> orderData = orderRepository.findById(orderId);
@@ -65,6 +67,25 @@ public class OrderController {
         }
     }
 
+    @PutMapping("/orders/{id}")
+    public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order order){
+        Optional<Order> orderData = orderRepository.findById(id);
+
+        if (orderData.isPresent()) {
+            Order _order = orderData.get();
+
+            _order.setUnits(order.getUnits());
+            _order.setTotalPrice(order.getTotalPrice());
+            _order.setLocation(order.getLocation());
+            _order.setMedicines(order.getMedicines());
+            _order.setPrescription(order.getPrescription());
+
+            return new ResponseEntity<>(orderRepository.save(_order), HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/orders/{id}")
     public ResponseEntity<Order> getOrderById(@PathVariable String id){
         Optional<Order> orderData = orderRepository.findById(id);
@@ -75,4 +96,15 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+
+
+    @DeleteMapping("orders/{id}")
+    public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") String id) {
+        try {
+            orderRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
