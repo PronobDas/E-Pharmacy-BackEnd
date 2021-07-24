@@ -23,6 +23,8 @@ public class OrderController {
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
         try {
             Order _order = orderRepository.save(new Order(
+                    order.getUserId(),
+                    order.getPhone(),
                     order.getLocation(),
                     order.getTotalPrice(),
                     order.getPrescription(),
@@ -67,6 +69,26 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/orders/{id}")
+    public ResponseEntity<Order> getOrderById(@PathVariable String id){
+        Optional<Order> orderData = orderRepository.findById(id);
+
+        if (orderData.isPresent())
+            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping("/orders/user/{userId}")
+    public ResponseEntity<Order> getOrderByUserId(@PathVariable String userId){
+        Optional<Order> orderData = orderRepository.findByUserId(userId);
+
+        if (orderData.isPresent())
+            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @PutMapping("/orders/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order order){
         Optional<Order> orderData = orderRepository.findById(id);
@@ -74,6 +96,8 @@ public class OrderController {
         if (orderData.isPresent()) {
             Order _order = orderData.get();
 
+            _order.setUserId(order.getUserId());
+            _order.setPhone(order.getPhone());
             _order.setUnits(order.getUnits());
             _order.setTotalPrice(order.getTotalPrice());
             _order.setLocation(order.getLocation());
@@ -85,18 +109,6 @@ public class OrderController {
         else
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable String id){
-        Optional<Order> orderData = orderRepository.findById(id);
-
-        if (orderData.isPresent())
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-
 
     @DeleteMapping("orders/{id}")
     public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") String id) {

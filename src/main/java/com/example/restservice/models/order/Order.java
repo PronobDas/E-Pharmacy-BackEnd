@@ -11,6 +11,8 @@ public class Order {
     @Id
     private String id;
 
+    private String userId;
+    private String phone;
     private String location;
     private double totalPrice;
     private String prescription;
@@ -18,7 +20,9 @@ public class Order {
     private List<Integer> units;
     private List<Medicine> medicines;
 
-    public Order(String location, double totalPrice, String prescription, List<Integer> units, List<Medicine> medicines) {
+    public Order(String userId, String phone, String location, double totalPrice, String prescription, List<Integer> units, List<Medicine> medicines) {
+        this.userId = userId;
+        this.phone = phone;
         this.location = location;
         this.prescription = prescription;
         this.units = units;
@@ -44,6 +48,22 @@ public class Order {
 
     public String getId() {
         return id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getLocation() {
