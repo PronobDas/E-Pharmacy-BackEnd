@@ -80,13 +80,19 @@ public class OrderController {
     }
 
     @GetMapping("/orders/user/{userId}")
-    public ResponseEntity<Order> getOrderByUserId(@PathVariable String userId){
-        Optional<Order> orderData = orderRepository.findByUserId(userId);
+    public ResponseEntity<List<Order>> getOrderByUserId(@PathVariable String userId){
+        try {
+            List<Order> orderData = new ArrayList<>();
+            orderRepository.findByUserId(userId).forEach(orderData::add);
 
-        if (orderData.isPresent())
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (orderData.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            else
+                return new ResponseEntity<>(orderData, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PutMapping("/orders/{id}")

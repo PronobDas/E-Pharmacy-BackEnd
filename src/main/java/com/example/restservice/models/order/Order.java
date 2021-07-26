@@ -16,6 +16,7 @@ public class Order {
     private String location;
     private double totalPrice;
     private String prescription;
+    private Boolean confirmed;
 
     private List<Integer> units;
     private List<Medicine> medicines;
@@ -25,6 +26,7 @@ public class Order {
         this.phone = phone;
         this.location = location;
         this.prescription = prescription;
+        this.confirmed = false;
         this.units = units;
         this.medicines = medicines;
         this.totalPrice = this.calculateTotalPrice();
@@ -88,6 +90,14 @@ public class Order {
 
     public void setPrescription(String prescription) {
         this.prescription = prescription;
+    }
+
+    public Boolean getConfirmed() {
+        return confirmed;
+    }
+
+    public void setConfirmed(Boolean confirmed) {
+        this.confirmed = confirmed;
     }
 
     public List<Integer> getUnits() {
