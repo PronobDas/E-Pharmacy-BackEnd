@@ -39,7 +39,7 @@ public class OrderController {
 
     //For adding medicines to the order
     @PutMapping("/orders/{orderId}/medicine/{unit}")
-    public ResponseEntity<Order> addMedicine(@PathVariable String orderId, @PathVariable int unit ,@RequestBody Medicine medicine){
+    public ResponseEntity<Order> addMedicine(@PathVariable String orderId, @RequestBody Medicine medicine, @PathVariable int unit){
         Optional<Order> orderData = orderRepository.findById(orderId);
 
         if (orderData.isPresent()) {
