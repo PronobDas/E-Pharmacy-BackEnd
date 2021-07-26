@@ -95,6 +95,7 @@ public class OrderController {
         }
     }
 
+    // Getting order list based on confirmed or not.
     @GetMapping("/orders/confirmed/{tfValue}")
     public ResponseEntity<List<Order>> getOrderByConfirmed(@PathVariable Boolean tfValue){
         try {
