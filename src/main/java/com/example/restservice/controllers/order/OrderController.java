@@ -95,6 +95,22 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/orders/confirmed/{tfValue}")
+    public ResponseEntity<List<Order>> getOrderByConfirmed(@PathVariable Boolean tfValue){
+        try {
+            List<Order> orderData = new ArrayList<>();
+            orderRepository.findByConfirmed(tfValue).forEach(orderData::add);
+
+            if (orderData.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            else
+                return new ResponseEntity<>(orderData, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/orders/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order order){
         Optional<Order> orderData = orderRepository.findById(id);

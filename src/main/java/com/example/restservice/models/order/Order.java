@@ -16,7 +16,7 @@ public class Order {
     private String location;
     private double totalPrice;
     private String prescription;
-    private Boolean confirmed;
+    private Boolean confirmed; // defines whether this order is confirmed or not
 
     private List<Integer> units;
     private List<Medicine> medicines;

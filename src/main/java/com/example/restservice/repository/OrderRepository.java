@@ -8,5 +8,5 @@ import java.util.Optional;
 
 public interface OrderRepository extends MongoRepository<Order, String> {
     List<Order> findByUserId(String userId);
-    //List<Order> findByConfirmed(Boolean confirmed);
+    List<Order> findByConfirmed(Boolean confirmed);
 }
