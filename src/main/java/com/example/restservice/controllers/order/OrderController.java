@@ -124,6 +124,7 @@ public class OrderController {
             _order.setTotalPrice(order.getTotalPrice());
             _order.setLocation(order.getLocation());
             _order.setMedicines(order.getMedicines());
+            _order.setConfirmed(order.getConfirmed());
             _order.setPrescription(order.getPrescription());
 
             return new ResponseEntity<>(orderRepository.save(_order), HttpStatus.OK);
