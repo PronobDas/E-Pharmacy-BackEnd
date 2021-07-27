@@ -1,4 +1,4 @@
-package com.example.restservice.controllers;
+package com.example.restservice.controllers.photo;
 
 import com.example.restservice.models.photo.Photo;
 import com.example.restservice.repository.PhotoRepository;

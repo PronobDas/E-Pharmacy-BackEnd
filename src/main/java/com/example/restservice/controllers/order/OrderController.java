@@ -3,11 +3,16 @@ package com.example.restservice.controllers.order;
 import com.example.restservice.models.medicine.Medicine;
 import com.example.restservice.models.order.Order;
 import com.example.restservice.repository.OrderRepository;
+import org.bson.BsonBinarySubType;
+import org.bson.types.Binary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +31,6 @@ public class OrderController {
                     order.getPhone(),
                     order.getLocation(),
                     order.getTotalPrice(),
-                    order.getPrescription(),
                     order.getUnits(),
                     order.getMedicines()
             ));
@@ -53,6 +57,22 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //For adding prescription to the order
+    @PutMapping("/orders/{orderId}/prescription")
+    public ResponseEntity<Order> addPrescription(@PathVariable String orderId, @RequestParam("prescription")MultipartFile prescription, Model model) throws IOException {
+        Optional<Order> orderData = orderRepository.findById(orderId);
+
+        if (orderData.isPresent()) {
+            Order _order = orderData.get();
+
+            _order.setPrescription(new Binary(BsonBinarySubType.BINARY, prescription.getBytes()));
+
+            return new ResponseEntity<>(orderRepository.save(_order), HttpStatus.OK);
+        }
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getAllOrders() {
         try {
@@ -69,13 +89,18 @@ public class OrderController {
     }
 
     @GetMapping("/orders/{id}")
-    public ResponseEntity<Order> getOrderById(@PathVariable String id){
-        Optional<Order> orderData = orderRepository.findById(id);
+    public ResponseEntity<Order> getOrderById(@PathVariable String id) {
+        try {
+            Optional<Order> orderData = orderRepository.findById(id);
 
-        if (orderData.isPresent())
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (orderData.isPresent())
+                return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/orders/user/{userId}")

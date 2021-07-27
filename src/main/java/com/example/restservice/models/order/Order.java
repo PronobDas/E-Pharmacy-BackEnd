@@ -1,6 +1,7 @@
 package com.example.restservice.models.order;
 
 import com.example.restservice.models.medicine.Medicine;
+import org.bson.types.Binary;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,17 +16,17 @@ public class Order {
     private String phone;
     private String location;
     private double totalPrice;
-    private String prescription;
+    private Binary prescription;
     private Boolean confirmed; // defines whether this order is confirmed or not
 
     private List<Integer> units;
     private List<Medicine> medicines;
 
-    public Order(String userId, String phone, String location, double totalPrice, String prescription, List<Integer> units, List<Medicine> medicines) {
+    public Order(String userId, String phone, String location, double totalPrice, List<Integer> units, List<Medicine> medicines) {
         this.userId = userId;
         this.phone = phone;
         this.location = location;
-        this.prescription = prescription;
+        this.prescription = null;
         this.confirmed = false;
         this.units = units;
         this.medicines = medicines;
@@ -84,11 +85,11 @@ public class Order {
         this.totalPrice = totalPrice;
     }
 
-    public String getPrescription() {
+    public Binary getPrescription() {
         return prescription;
     }
 
-    public void setPrescription(String prescription) {
+    public void setPrescription(Binary prescription) {
         this.prescription = prescription;
     }
 
@@ -123,5 +124,20 @@ public class Order {
     public void setMedicine(Medicine medicine)
     {
         this.medicines.add(medicine);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id='" + id + '\'' +
+                ", userId='" + userId + '\'' +
+                ", phone='" + phone + '\'' +
+                ", location='" + location + '\'' +
+                ", totalPrice=" + totalPrice +
+                ", prescription=" + prescription +
+                ", confirmed=" + confirmed +
+                ", units=" + units +
+                ", medicines=" + medicines +
+                '}';
     }
 }
