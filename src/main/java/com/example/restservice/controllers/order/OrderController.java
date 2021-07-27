@@ -4,7 +4,6 @@ import com.example.restservice.models.medicine.Medicine;
 import com.example.restservice.models.order.Order;
 import com.example.restservice.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.BooleanOperators;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

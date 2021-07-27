@@ -17,6 +17,11 @@ public class Photo {
         this.title = title;
     }
 
+//    public Photo(String id, String title) {
+//        this.id = id;
+//        this.title = title;
+//    }
+
     public String getId(){
         return id;
     }
