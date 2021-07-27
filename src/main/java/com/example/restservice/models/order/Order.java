@@ -18,6 +18,7 @@ public class Order {
     private double totalPrice;
     private Binary prescription;
     private Boolean confirmed; // defines whether this order is confirmed or not
+    private Boolean delivered;
 
     private List<Integer> units;
     private List<Medicine> medicines;
@@ -28,6 +29,7 @@ public class Order {
         this.location = location;
         this.prescription = null;
         this.confirmed = false;
+        this.delivered = false;
         this.units = units;
         this.medicines = medicines;
         this.totalPrice = this.calculateTotalPrice();
@@ -99,6 +101,14 @@ public class Order {
 
     public void setConfirmed(Boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
     }
 
     public List<Integer> getUnits() {

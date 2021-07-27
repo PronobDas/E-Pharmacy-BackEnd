@@ -136,6 +136,23 @@ public class OrderController {
         }
     }
 
+    // Getting order list based on delivered or not.
+    @GetMapping("/orders/delivered/{tfValue}")
+    public ResponseEntity<List<Order>> getOrderByDelivered(@PathVariable Boolean tfValue){
+        try {
+            List<Order> orderData = new ArrayList<>();
+            orderRepository.findByDelivered(tfValue).forEach(orderData::add);
+
+            if (orderData.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            else
+                return new ResponseEntity<>(orderData, HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/orders/{id}")
     public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order order){
         Optional<Order> orderData = orderRepository.findById(id);
@@ -150,6 +167,7 @@ public class OrderController {
             _order.setLocation(order.getLocation());
             _order.setMedicines(order.getMedicines());
             _order.setConfirmed(order.getConfirmed());
+            _order.setDelivered(order.getDelivered());
             _order.setPrescription(order.getPrescription());
 
             return new ResponseEntity<>(orderRepository.save(_order), HttpStatus.OK);
