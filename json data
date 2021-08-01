@@ -1,0 +1,60 @@
+User
+{
+    "firstName": "Alam",
+    "lastName": "Hasan",
+    "password": "abcd34",
+    "email": "a@gmail.com",
+    "location": "sasasljla",
+    "gender": "Male",
+    "contactNo": "0128987874"
+}
+
+
+Medicine
+{
+    "name": "Napa3",
+    "genericName": "Paracetamol3",
+    "companyName": "AAAA",
+    "weight": 0.5,
+    "unitPrice": 1.00,
+    "sensitivity": "Less"
+}
+
+
+location
+{
+    "latitude": 23.810331,
+    "longitude": 90.412521,
+    "upazila": "Sadar",
+    "district": "Dhaka"
+}
+
+Doctor
+{
+    "name": "Anis",
+    "designation": "MBBS",
+    "speciality": "All",
+    "locationId": "ugfaifaf",
+    "day": "Sun-Wed",
+    "time": "10AM - 5PM",
+    "contactNo": "879482742"
+}
+
+Vendor
+{
+    "name": "Alim2333",
+    "locationId": "ugfaifaf",
+    "contactNo": "879482742",
+    "status": "available"
+}
+
+
+Order
+{
+    "userId" : "fjfsjfs",
+    "phone": "87870",
+    "location": "dhaka",
+    "totalPrice": 0, 
+    "units": [], 
+    "medicines": []
+}
